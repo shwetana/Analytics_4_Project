@@ -24,20 +24,14 @@ MODEL_PATH = './EffNetcast.h5'
 
 # Load your trained model
 model = load_model(MODEL_PATH)
-# model._make_predict_function()          # Necessary
-# print('Model loaded. Start serving...')
 
-# You can also use pretrained model from Keras
-# Check https://keras.io/applications/
-#from keras.applications.resnet50 import ResNet50
-#model = ResNet50(weights='imagenet')
-#model.save('')
+
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 
 def model_predict(img_path, model):
     img = image.load_img(img_path, target_size=(224, 224))
-
+    # efficientnetb0 input image size = 224,224,3
     # Preprocessing the image
     x = image.img_to_array(img)
     # x = np.true_divide(x, 255)
@@ -71,12 +65,6 @@ def upload():
 
         # Make prediction
         preds = model_predict(file_path, model)
-        print("===============print predicted class====================")
-        print(preds)
-        # Process your result for human
-        # pred_class = preds.argmax(axis=-1)            # Simple argmax
-        # pred_class = decode_predictions(preds, top=1)   # ImageNet Decode
-        # result = str(pred_class[0][0][1])               # Convert to string
 
         result = ""
 
